@@ -1,5 +1,6 @@
 /* System fonts and local assets keep the workshop usable without external CDNs. */
-body { margin: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
 a { text-decoration: none; }
 button { font-family: inherit; }
 img { max-width: 100%; }
