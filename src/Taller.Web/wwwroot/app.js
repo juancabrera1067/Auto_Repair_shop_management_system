@@ -141,46 +141,63 @@ document.addEventListener('click',async e=>{const el=e.target.closest('[data-act
 window.addEventListener('hashchange',()=>render().catch(e=>toast(e.message)));
 boot().catch(e=>{$('#app').innerHTML=`<div class="loading"><div><h1>No se pudo abrir el taller</h1><p>${esc(e.message)}</p><button data-action="reload">Reintentar</button></div></div>`;actions.reload=()=>location.reload();});
 
-// ===== Animations =====
-const animateCards = () => {
-    document.querySelectorAll('.card').forEach((card, i) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(16px)';
-        card.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
-        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 80 * i);
-    });
+// ===== Smooth Page Transitions =====
+const fadeContent = () => new Promise(resolve => {
+    const c = document.getElementById('content');
+    if (!c) { resolve(); return; }
+    c.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(6px)';
+    setTimeout(resolve, 300);
+});
+const showContent = () => {
+    const c = document.getElementById('content');
+    if (!c) return;
+    c.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out';
+    c.style.opacity = '1';
+    c.style.transform = 'translateY(0)';
 };
-const animateRecords = () => {
-    document.querySelectorAll('.record').forEach((rec, i) => {
-        rec.style.opacity = '0';
-        rec.style.transform = 'translateX(-10px)';
-        rec.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
-        setTimeout(() => { rec.style.opacity = '1'; rec.style.transform = 'translateX(0)'; }, 50 * i);
+const animateIn = (delay) => setTimeout(() => {
+    document.querySelectorAll('.stat').forEach((el, i) => {
+        el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+        setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 80 * i);
     });
-};
-const addRipple = (e) => {
+    document.querySelectorAll('.card').forEach((el, i) => {
+        el.style.opacity = '0'; el.style.transform = 'translateY(12px)';
+        el.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+        setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 100 + i * 60);
+    });
+}, delay || 100);
+
+window.addEventListener('hashchange', async () => {
+    await fadeContent();
+    try { render(); } catch(e) { toast(e.message); }
+    requestAnimationFrame(showContent);
+    animateIn(50);
+});
+
+document.addEventListener('click', (e) => {
     const btn = e.target.closest('button');
-    if (!btn) return;
+    if (!btn || btn.disabled) return;
     const ripple = document.createElement('span');
     const rect = btn.getBoundingClientRect();
-    const style = Object.assign(ripple.style, {
-        position: 'absolute', borderRadius: '50%', background: 'rgba(255,255,255,0.3)',
+    Object.assign(ripple.style, {
+        position: 'absolute', borderRadius: '50%', background: 'rgba(72,138,153,0.2)',
         width: '20px', height: '20px',
         marginLeft: (e.clientX - rect.left - 10) + 'px',
         marginTop: (e.clientY - rect.top - 10) + 'px',
         transform: 'scale(0)', opacity: '1',
-        pointerEvents: 'none', transition: 'transform 0.5s, opacity 0.5s'
+        pointerEvents: 'none', transition: 'transform 0.4s ease-out, opacity 0.4s ease-out'
     });
     btn.style.position = 'relative';
     btn.style.overflow = 'hidden';
     btn.appendChild(ripple);
     setTimeout(() => { ripple.style.transform = 'scale(4)'; ripple.style.opacity = '0'; }, 10);
-    setTimeout(() => ripple.remove(), 600);
-};
-document.addEventListener('click', (e) => addRipple(e));
-setTimeout(animateCards, 100);
-setTimeout(animateRecords, 200);
-const observer = new IntersectionObserver((entries) => {
+    setTimeout(() => ripple.remove(), 500);
+});
+
+const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
@@ -188,9 +205,12 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, { threshold: 0.1 });
-document.querySelectorAll('.stat, .card').forEach(el => {
-    el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-    observer.observe(el);
+document.querySelectorAll('.stat, .card, .meta div').forEach(el => {
+    if (el.style.opacity !== '1') {
+        el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        obs.observe(el);
+    }
 });
-window.addEventListener('hashchange', () => { setTimeout(animateCards, 100); setTimeout(animateRecords, 200); });
+
+animateIn(100);

@@ -16,28 +16,33 @@ async function show(){
 }
 (async()=>{csrf=(await request('/auth/csrf')).token;settings=await request('/settings');const token=location.hash.slice(1);if(token){history.replaceState(null,'','/seguimiento');try{await request('/tracking/access','POST',{token});await show();}catch(e){login(e.message);}}else{try{await show();}catch{login();}}})().catch(e=>login(e.message));
 
-// ===== Animations =====
-const animatePortalRecords = () => {
-    document.querySelectorAll('.portal .record, .portal article').forEach((rec, i) => {
-        rec.style.opacity = '0';
-        rec.style.transform = 'translateY(12px)';
-        rec.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out';
-        setTimeout(() => { rec.style.opacity = '1'; rec.style.transform = 'translateY(0)'; }, 60 * i);
-    });
+
+// ===== Smooth Animations =====
+const fadeContent = () => new Promise(resolve => {
+    const c = document.getElementById('portal-content');
+    if (!c) { resolve(); return; }
+    c.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(6px)';
+    setTimeout(resolve, 300);
+});
+const showContent = () => {
+    const c = document.getElementById('portal-content');
+    if (!c) return;
+    c.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out';
+    c.style.opacity = '1';
+    c.style.transform = 'translateY(0)';
 };
-const animatePortalCards = () => {
-    document.querySelectorAll('.portal .card').forEach((card, i) => {
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.97)';
-        card.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
-        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 100 * i);
+const animatePortal = () => {
+    document.querySelectorAll('.portal .card').forEach((el, i) => {
+        el.style.opacity = '0'; el.style.transform = 'translateY(12px)';
+        el.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+        setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 100 + i * 80);
     });
-};
-const animateSteps = () => {
-    document.querySelectorAll('.step').forEach((step, i) => {
-        if (step.classList.contains('done')) {
-            step.style.animation = 'progressFill 0.5s ease-out ' + (i * 0.08) + 's both';
-        }
+    document.querySelectorAll('.portal .record, .portal article').forEach((el, i) => {
+        el.style.opacity = '0'; el.style.transform = 'translateX(-8px)';
+        el.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+        setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateX(0)'; }, 50 * i);
     });
 };
 const addRipple = (e) => {
@@ -46,24 +51,21 @@ const addRipple = (e) => {
     const ripple = document.createElement('span');
     const rect = btn.getBoundingClientRect();
     Object.assign(ripple.style, {
-        position: 'absolute', borderRadius: '50%', background: 'rgba(72,138,153,0.3)',
+        position: 'absolute', borderRadius: '50%', background: 'rgba(72,138,153,0.2)',
         width: '20px', height: '20px',
         marginLeft: (e.clientX - rect.left - 10) + 'px',
         marginTop: (e.clientY - rect.top - 10) + 'px',
         transform: 'scale(0)', opacity: '1',
-        pointerEvents: 'none', transition: 'transform 0.5s, opacity 0.5s'
+        pointerEvents: 'none', transition: 'transform 0.4s ease-out, opacity 0.4s ease-out'
     });
     btn.style.position = 'relative';
     btn.style.overflow = 'hidden';
     btn.appendChild(ripple);
     setTimeout(() => { ripple.style.transform = 'scale(4)'; ripple.style.opacity = '0'; }, 10);
-    setTimeout(() => ripple.remove(), 600);
+    setTimeout(() => ripple.remove(), 500);
 };
 document.addEventListener('click', (e) => addRipple(e));
-setTimeout(animatePortalCards, 100);
-setTimeout(animatePortalRecords, 200);
-setTimeout(animateSteps, 300);
-const observer = new IntersectionObserver((entries) => {
+const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
@@ -71,8 +73,11 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, { threshold: 0.1 });
-document.querySelectorAll('.portal .card, .portal .stat, .portal .meta div').forEach(el => {
-    el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-    observer.observe(el);
+document.querySelectorAll('.portal .card, .portal .meta div').forEach(el => {
+    if (el.style.opacity !== '1') {
+        el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        obs.observe(el);
+    }
 });
+animatePortal();
