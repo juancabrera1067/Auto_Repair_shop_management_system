@@ -1,1 +1,5 @@
 /* System fonts and local assets keep the workshop usable without external CDNs. */
+body { margin: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+a { text-decoration: none; }
+button { font-family: inherit; }
+img { max-width: 100%; }

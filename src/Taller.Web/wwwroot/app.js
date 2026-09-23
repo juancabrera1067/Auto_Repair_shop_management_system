@@ -140,3 +140,57 @@ const actions={
 document.addEventListener('click',async e=>{const el=e.target.closest('[data-action]');if(!el)return;e.preventDefault();try{await actions[el.dataset.action]?.(el.dataset.id,el);}catch(err){toast(err.message);}});
 window.addEventListener('hashchange',()=>render().catch(e=>toast(e.message)));
 boot().catch(e=>{$('#app').innerHTML=`<div class="loading"><div><h1>No se pudo abrir el taller</h1><p>${esc(e.message)}</p><button data-action="reload">Reintentar</button></div></div>`;actions.reload=()=>location.reload();});
+
+// ===== Animations =====
+const animateCards = () => {
+    document.querySelectorAll('.card').forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(16px)';
+        card.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 80 * i);
+    });
+};
+const animateRecords = () => {
+    document.querySelectorAll('.record').forEach((rec, i) => {
+        rec.style.opacity = '0';
+        rec.style.transform = 'translateX(-10px)';
+        rec.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+        setTimeout(() => { rec.style.opacity = '1'; rec.style.transform = 'translateX(0)'; }, 50 * i);
+    });
+};
+const addRipple = (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const ripple = document.createElement('span');
+    const rect = btn.getBoundingClientRect();
+    const style = Object.assign(ripple.style, {
+        position: 'absolute', borderRadius: '50%', background: 'rgba(255,255,255,0.3)',
+        width: '20px', height: '20px',
+        marginLeft: (e.clientX - rect.left - 10) + 'px',
+        marginTop: (e.clientY - rect.top - 10) + 'px',
+        transform: 'scale(0)', opacity: '1',
+        pointerEvents: 'none', transition: 'transform 0.5s, opacity 0.5s'
+    });
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(ripple);
+    setTimeout(() => { ripple.style.transform = 'scale(4)'; ripple.style.opacity = '0'; }, 10);
+    setTimeout(() => ripple.remove(), 600);
+};
+document.addEventListener('click', (e) => addRipple(e));
+setTimeout(animateCards, 100);
+setTimeout(animateRecords, 200);
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.stat, .card').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+    observer.observe(el);
+});
+window.addEventListener('hashchange', () => { setTimeout(animateCards, 100); setTimeout(animateRecords, 200); });
