@@ -317,6 +317,10 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); }
 .progress-row progress::-moz-progress-bar { background: var(--gold); border-radius: 6px; }
 .progress-row:hover { border-color: rgba(72, 138, 153, 0.2); box-shadow: var(--shadow); }
 
+.portal .auth-layout { max-width: none; width: 100%; padding: 0; }
+.portal .auth-story { padding: 40px 30px; }
+.portal .auth-form { padding: 40px 30px; }
+
 /* ===== Portal Styles ===== */
 .portal { padding: 25px 18px; max-width: 1200px; margin: 0 auto; }
 .portal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
