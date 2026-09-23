@@ -363,9 +363,9 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); }
     .checklist-row { grid-template-columns: 1fr 1fr; }
     .checklist-row input { grid-column: 1 / -1; }
     .grid { grid-template-columns: 1fr; }
-    .auth-layout { grid-template-columns: 1fr; }
-    .auth-story { padding: 35px 20px; min-height: 200px; }
-    .auth-form { padding: 30px 25px; }
+    .auth-layout, .portal .auth-layout { grid-template-columns: 1fr; }
+    .auth-story, .portal .auth-story { padding: 35px 20px; min-height: 200px; }
+    .auth-form, .portal .auth-form { padding: 30px 25px; }
     .steps { flex-wrap: wrap; }
     .step { width: 32px; height: 5px; }
     .step-connector { width: 16px; }
