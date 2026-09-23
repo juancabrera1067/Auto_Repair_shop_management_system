@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+**/App_Data/
+**/TestResults/
+.tools/
+.artifacts/
+*.user
+*.suo
+appsettings.Local.json
+*.log

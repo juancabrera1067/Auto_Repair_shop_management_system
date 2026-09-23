@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{70705818-3C7D-4389-8002-485A3FA10B68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taller.Web", "src\Taller.Web\Taller.Web.csproj", "{49DC8CA2-A18B-482D-99EE-C33EC3193E92}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A22C872-7C3B-49C7-B107-B8FE16F99E41}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Debug|x64.Build.0 = Debug|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Debug|x86.Build.0 = Debug|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Release|x64.ActiveCfg = Release|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Release|x64.Build.0 = Release|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Release|x86.ActiveCfg = Release|Any CPU
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{49DC8CA2-A18B-482D-99EE-C33EC3193E92} = {70705818-3C7D-4389-8002-485A3FA10B68}
+	EndGlobalSection
+EndGlobal
