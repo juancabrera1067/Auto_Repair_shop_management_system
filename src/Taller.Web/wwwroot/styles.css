@@ -40,7 +40,7 @@
 
 /* ===== Reset y Base ===== */
 * { box-sizing: border-box; margin: 0; }
-body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.7; font-size: 15px; }
 button, input, textarea, select { font: inherit; font-family: var(--font); }
 button, a, input, select, textarea { outline-offset: 4px; }
 button { cursor: pointer; }
@@ -105,14 +105,14 @@ a:hover { text-decoration: underline; color: var(--aqua-dark); }
 /* ===== Page Header ===== */
 .page-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
 .page-head .eyebrow { font-size: 11px; letter-spacing: 1.5px; font-weight: 700; color: var(--aqua); text-transform: uppercase; margin-bottom: 6px; }
-.page-head h1 { font-size: 28px; font-weight: 700; line-height: 1.2; color: var(--ink); }
+.page-head h1 { font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--ink); }
 .page-head .lead { color: var(--muted); font-size: 14px; margin-top: 4px; }
 .page-head .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* ===== Buttons ===== */
 button {
-    border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px 16px;
-    background: var(--bg-card); color: var(--ink); font-weight: 600; font-size: 14px;
+    border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 20px;
+    background: var(--bg-card); color: var(--ink); font-weight: 600; font-size: 15px;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; box-shadow: var(--shadow);
     position: relative; overflow: hidden;
 }
@@ -139,13 +139,13 @@ button.back:hover { color: var(--aqua-dark); }
     box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden;
 }
 .card-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px 0; flex-wrap: wrap; gap: 8px; }
-.card-head h2 { font-size: 17px; font-weight: 700; color: var(--ink); }
+.card-head h2 { font-size: 19px; font-weight: 700; color: var(--ink); }
 .card-head small { color: var(--muted); font-size: 12px; }
 .card-body { padding: 20px 24px; }
 .card-body .record { padding: 12px 0; border-bottom: 1px solid var(--line); }
 .card-body .record:last-child { border-bottom: none; }
 .record-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-.record h3 { font-size: 15px; font-weight: 600; }
+.record h3 { font-size: 17px; font-weight: 600; }
 .record p { color: var(--muted); font-size: 13px; margin: 4px 0; line-height: 1.5; }
 .record small { color: var(--muted); font-size: 12px; }
 
@@ -161,7 +161,7 @@ button.back:hover { color: var(--aqua-dark); }
 }
 .stat:hover { box-shadow: var(--shadow-md); }
 .stat-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-.stat-number { font-size: 36px; font-weight: 700; color: var(--ink); line-height: 1; }
+.stat-number { font-size: 42px; font-weight: 700; color: var(--ink); line-height: 1; }
 .stat small { color: var(--muted); font-size: 12px; display: block; margin-top: 6px; }
 .stat::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); border-radius: 3px 3px 0 0; }
 
@@ -177,12 +177,12 @@ tbody tr:hover td { background: rgba(72, 138, 153, 0.03); }
 .meta div { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; }
 .meta div:hover { border-color: var(--aqua); box-shadow: var(--shadow); }
 .meta small { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
-.meta strong { font-size: 16px; font-weight: 700; }
+.meta strong { font-size: 18px; font-weight: 700; }
 
 /* ===== Tabs ===== */
 .tabs { display: flex; gap: 2px; border-bottom: 2px solid var(--line); margin-bottom: 20px; overflow-x: auto; }
 .tab {
-    padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--muted);
+    padding: 12px 18px; font-size: 14px; font-weight: 600; color: var(--muted);
     border: none; background: none; border-bottom: 2px solid transparent;
     margin-bottom: -2px; transition: color 0.2s ease, border-color 0.2s ease; white-space: nowrap;
 }
@@ -306,6 +306,16 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); }
 .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
 .timeline .record { position: relative; padding-left: 16px; }
 .timeline .record::before { content: ''; position: absolute; left: -22px; top: 16px; width: 10px; height: 10px; border-radius: 50%; background: var(--aqua); border: 2px solid var(--bg-card); }
+
+/* ===== Progress Row ===== */
+.progress-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; background: var(--bg-light); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 12px; }
+.progress-row span { font-size: 16px; font-weight: 600; color: var(--ink); }
+.progress-row strong { font-size: 22px; font-weight: 700; color: var(--aqua); }
+.progress-row progress { flex: 1; max-width: 200px; height: 14px; border-radius: 7px; border: none; overflow: hidden; background: var(--line); }
+.progress-row progress::-webkit-progress-bar { background: var(--line); border-radius: 6px; }
+.progress-row progress::-webkit-progress-value { background: var(--gold); border-radius: 6px; transition: width 0.3s ease; }
+.progress-row progress::-moz-progress-bar { background: var(--gold); border-radius: 6px; }
+.progress-row:hover { border-color: rgba(72, 138, 153, 0.2); box-shadow: var(--shadow); }
 
 /* ===== Portal Styles ===== */
 .portal { padding: 25px 18px; max-width: 1200px; margin: 0 auto; }
