@@ -6,6 +6,7 @@
 **/TestResults/
 .tools/
 .artifacts/
+.playwright-cli/
 *.user
 *.suo
 appsettings.Local.json

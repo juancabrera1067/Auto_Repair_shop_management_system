@@ -1,6 +1,3 @@
-/* System fonts and local assets keep the workshop usable without external CDNs. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-a { text-decoration: none; }
-button { font-family: inherit; }
+/* Self-hosted Inter, SIL Open Font License: fonts/OFL.txt. */
+@font-face { font-family: 'Inter'; src: url('/fonts/Inter-variable.ttf') format('truetype'); font-weight: 100 900; font-style: normal; font-display: swap; }
 img { max-width: 100%; }
